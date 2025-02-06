@@ -35,7 +35,7 @@ pip install pandas nltk selenium webdriver-manager
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/your-username/sentiment-analysis.git
+git clone https://github.com/daniloriitano/sentiment-analysis.git
 cd sentiment-analysis
 ```
 
