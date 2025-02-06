@@ -1,0 +1,15 @@
+# Acknowledgement
+
+The authors of this project acknowledge the sources of the data used in the analysis. The links to the articles were gathered from the websites of five publishers: *Il Fatto Quotidiano, Libero Quotidiano, Il Giornale, Open,* and *Pagella Politica*, primarily through Google searches.
+
+Regarding the authors' contributions, here is how we developed the project pipeline:
+
+- **A.B.** conducted extensive research to find and collect the article links.
+- **M.M.** verified the project steps using Generative AI platforms such as ChatGPT.
+- **C.A.** handled code debugging using Visual Studio Code and ChatGPT.
+- **A.B. & M.M.** finalized and structured the code.
+- **C.A.** wrote the documentation.
+- **All team members** collaborated to upload the final version of the project to GitHub.
+
+We deeply appreciate all the resources and tools that facilitated our work and helped us bring this project to completion.
+
