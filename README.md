@@ -1,4 +1,3 @@
-# sentiment_analysis
 # Sentiment Analysis with Selenium and VADER
 
 This project performs sentiment analysis on newspaper articles using Selenium for web scraping and the VADER lexicon from NLTK for sentiment analysis. The script extracts text from specified URLs, removes unwanted content, and determines the overall sentiment tone of the text.
@@ -20,9 +19,23 @@ pip install pandas nltk selenium webdriver-manager
 
 Additionally, to use the Chrome WebDriver, ensure you have Google Chrome installed.
 
+### Setting Up the Environment
+We started by creating a **Conda** environment for better dependency management. You can create and activate the environment with the following commands:
+
+```bash
+conda create --name sentiment-analysis python=3.9
+conda activate sentiment-analysis
+```
+
+After activating the environment, install the required packages:
+
+```bash
+pip install pandas nltk selenium webdriver-manager
+```
+
 ### Clone the Repository
 ```bash
-git clone https://github.com/daniloriitano/sentiment-analysis.git
+git clone https://github.com/your-username/sentiment-analysis.git
 cd sentiment-analysis
 ```
 
@@ -61,4 +74,3 @@ If you want to contribute to this project, feel free to submit a pull request or
 
 ## 📜 License
 This project is distributed under the MIT license. Feel free to use and modify it as needed.
-
