@@ -7,6 +7,7 @@ This project performs sentiment analysis on newspaper articles using Selenium fo
 - Cleaning of extracted text to remove irrelevant content
 - Sentiment analysis using the VADER model
 - Saving results to a CSV file
+- A dedicated script was created for each newspaper to handle different article structures
 
 ## 🚀 Installation
 
@@ -52,7 +53,9 @@ The script will:
 2. Use Selenium to extract the text.
 3. Clean the text by removing irrelevant content.
 4. Perform sentiment analysis using the VADER model.
-5. Save the results to a `results_sentiment_ilgiornale.csv` file.
+5. Save the results to a `sentiment_nometestata.csv` file.
+
+Each newspaper has its own dedicated script to ensure accurate text extraction, adapting to different website structures.
 
 ## 📄 Results
 Results are saved in a CSV file with the following columns:
@@ -74,3 +77,4 @@ If you want to contribute to this project, feel free to submit a pull request or
 
 ## 📜 License
 This project is distributed under the MIT license. Feel free to use and modify it as needed.
+
