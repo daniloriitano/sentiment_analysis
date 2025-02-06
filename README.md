@@ -45,7 +45,7 @@ cd sentiment-analysis
 Run the script using:
 
 ```bash
-python sentiment_analysis.py
+python sentiment_nometestata.py
 ```
 
 The script will:
@@ -53,7 +53,7 @@ The script will:
 2. Use Selenium to extract the text.
 3. Clean the text by removing irrelevant content.
 4. Perform sentiment analysis using the VADER model.
-5. Save the results to a `sentiment_nometestata.csv` file.
+5. Save the results to a `risultati_sentiment_nometestata.csv` file.
 
 Each newspaper has its own dedicated script to ensure accurate text extraction, adapting to different website structures.
 
