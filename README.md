@@ -22,7 +22,7 @@ Additionally, to use the Chrome WebDriver, ensure you have Google Chrome install
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/your-username/sentiment-analysis.git
+git clone https://github.com/daniloriitano/sentiment-analysis.git
 cd sentiment-analysis
 ```
 
