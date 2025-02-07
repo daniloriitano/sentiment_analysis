@@ -52,15 +52,14 @@ articoli = {
     ]
 }
 
-
 # Configura WebDriver
 def configura_driver():
     options = Options()
-    options.add_argument("--headless")  # Eseguire il browser in modalità senza interfaccia grafica
+    options.add_argument("--headless")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     options.add_argument("--log-level=3")
-    options.add_argument("--disable-blink-features=AutomationControlled")  # Evita il rilevamento di Selenium
+    options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("user-agent=Mozilla/5.0")
     
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
@@ -69,26 +68,20 @@ def configura_driver():
 def estrai_testo(url, driver):
     print(f"📰 Analizzando: {url}")
     driver.get(url)
-
     try:
-        # Attendere che il corpo della pagina sia caricato
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
-        
-        # Tentare di chiudere il banner dei cookie
         try:
             bottone_cookie = WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Accetta') or contains(text(),'Accept') or contains(text(),'OK') or contains(text(),'Continue')]"))
             )
             bottone_cookie.click()
             print("🍪 Banner cookie chiuso con successo!")
-            time.sleep(2)  # Attendere il caricamento della pagina dopo la chiusura del banner
+            time.sleep(2)
         except:
             print("⚠️ Nessun banner cookie trovato.")
         
-        # Estrarre il testo della pagina
         testo = driver.execute_script("return document.body.innerText")
         return rimuovi_testo_indesiderato(testo)
-    
     except Exception as e:
         print(f"❌ Errore estrazione: {e}")
         return ""
@@ -97,7 +90,7 @@ def estrai_testo(url, driver):
 def analizza_sentiment(testo):
     if not testo:
         return "Neutro", 0  
-
+    
     punteggio = sia.polarity_scores(testo)['compound']
     if punteggio > 0.85:
         tono = "Positivo Forte"
@@ -110,7 +103,7 @@ def analizza_sentiment(testo):
     else:
         tono = "Negativo Forte"
     
-    punteggio_normalizzato = (punteggio + 1) / 2  # Normalizzazione tra 0 e 1
+    punteggio_normalizzato = (punteggio + 1) / 2  
     print(f"📊 SENTIMENT: {tono} ({punteggio_normalizzato})\n")
     return tono, punteggio_normalizzato
 
@@ -118,7 +111,6 @@ def analizza_sentiment(testo):
 def main():
     risultati = []
     driver = configura_driver()
-
     try:
         for partito, urls in articoli.items():
             for url in urls:
@@ -128,13 +120,12 @@ def main():
                     "Partito": partito,
                     "URL": url,
                     "Tono": tono,
-                    "Punteggio": punteggio,
-                    "Testo": testo[:1000]  # Salviamo solo i primi 1000 caratteri
+                    "Punteggio": punteggio
                 })
     finally:
         driver.quit()
     
-    # Salva tutti i risultati in un unico file CSV
+    # Salva i risultati senza la colonna "Testo"
     percorso_csv = "/Users/daniloriitano/Sentiment_Analysis/Project Folder/risultati_sentiment_liberoquotidiano.csv"
     df = pd.DataFrame(risultati)
     df.to_csv(percorso_csv, index=False, encoding="utf-8")
