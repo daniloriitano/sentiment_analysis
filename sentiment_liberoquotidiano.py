@@ -17,7 +17,7 @@ sia = SentimentIntensityAnalyzer()
 
 # Funzione per rimuovere il testo indesiderato
 def rimuovi_testo_indesiderato(testo):
-    pattern = r"(Il rispetto della tua riservatezza è la nostra priorità.*?questo sito web e v|SOSTIENICI|Community|Abbonati|Accedi|Leggi anche|SEGUI SU|Condividi|ISCRIVITI)"
+    pattern = r"(Il rispetto della tua riservatezza.*?questo sito web e v|SOSTIENICI|Community|Abbonati|Accedi|Leggi anche|SEGUI SU|Condividi|ISCRIVITI)"
     return re.sub(pattern, '', testo, flags=re.IGNORECASE).strip()
 
 # Dizionario con i partiti e i relativi articoli aggiornati
@@ -53,25 +53,42 @@ articoli = {
 }
 
 
-
 # Configura WebDriver
 def configura_driver():
     options = Options()
-    options.add_argument("--headless")
+    options.add_argument("--headless")  # Eseguire il browser in modalità senza interfaccia grafica
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     options.add_argument("--log-level=3")
+    options.add_argument("--disable-blink-features=AutomationControlled")  # Evita il rilevamento di Selenium
     options.add_argument("user-agent=Mozilla/5.0")
+    
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 # Estrai testo con Selenium
 def estrai_testo(url, driver):
     print(f"📰 Analizzando: {url}")
     driver.get(url)
+
     try:
+        # Attendere che il corpo della pagina sia caricato
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+        
+        # Tentare di chiudere il banner dei cookie
+        try:
+            bottone_cookie = WebDriverWait(driver, 5).until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Accetta') or contains(text(),'Accept') or contains(text(),'OK') or contains(text(),'Continue')]"))
+            )
+            bottone_cookie.click()
+            print("🍪 Banner cookie chiuso con successo!")
+            time.sleep(2)  # Attendere il caricamento della pagina dopo la chiusura del banner
+        except:
+            print("⚠️ Nessun banner cookie trovato.")
+        
+        # Estrarre il testo della pagina
         testo = driver.execute_script("return document.body.innerText")
         return rimuovi_testo_indesiderato(testo)
+    
     except Exception as e:
         print(f"❌ Errore estrazione: {e}")
         return ""
@@ -82,7 +99,6 @@ def analizza_sentiment(testo):
         return "Neutro", 0  
 
     punteggio = sia.polarity_scores(testo)['compound']
-
     if punteggio > 0.85:
         tono = "Positivo Forte"
     elif punteggio > 0.55:
@@ -93,7 +109,7 @@ def analizza_sentiment(testo):
         tono = "Negativo"
     else:
         tono = "Negativo Forte"
-
+    
     punteggio_normalizzato = (punteggio + 1) / 2  # Normalizzazione tra 0 e 1
     print(f"📊 SENTIMENT: {tono} ({punteggio_normalizzato})\n")
     return tono, punteggio_normalizzato
@@ -117,11 +133,12 @@ def main():
                 })
     finally:
         driver.quit()
-
+    
     # Salva tutti i risultati in un unico file CSV
+    percorso_csv = "/Users/daniloriitano/Sentiment_Analysis/Project Folder/risultati_sentiment_liberoquotidiano.csv"
     df = pd.DataFrame(risultati)
-    df.to_csv("risultati_sentiment_liberoquotidiano.csv", index=False, encoding="utf-8")
-    print("✅ Analisi completata! Dati salvati in 'risultati_sentiment_ilgiornale.csv'")
+    df.to_csv(percorso_csv, index=False, encoding="utf-8")
+    print(f"✅ Analisi completata! Dati salvati in '{percorso_csv}'")
 
 # Esegui il codice
 if __name__ == "__main__":
