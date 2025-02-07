@@ -52,6 +52,7 @@ articoli = {
     ]
 }
 
+
 # Configura WebDriver
 def configura_driver():
     options = Options()
@@ -92,7 +93,7 @@ def analizza_sentiment(testo):
     else:
         tono = "Negativo Forte"
 
-    punteggio_normalizzato = (punteggio + 1) / 2  # Normalizzazione tra 0 e 1
+    punteggio_normalizzato = (punteggio + 1) / 2  
     print(f"📊 SENTIMENT: {tono} ({punteggio_normalizzato})\n")
     return tono, punteggio_normalizzato
 
@@ -110,8 +111,7 @@ def main():
                     "Partito": partito,
                     "URL": url,
                     "Tono": tono,
-                    "Punteggio": punteggio,
-                    "Testo": testo[:1000]  # Salviamo solo i primi 1000 caratteri
+                    "Punteggio": punteggio
                 })
     finally:
         driver.quit()
@@ -125,3 +125,4 @@ def main():
 # Esegui il codice
 if __name__ == "__main__":
     main()
+
