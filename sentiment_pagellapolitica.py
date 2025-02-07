@@ -21,6 +21,8 @@ def rimuovi_testo_indesiderato(testo):
     return re.sub(pattern, '', testo, flags=re.IGNORECASE).strip()
 
 # Dizionario con i partiti e i relativi articoli aggiornati
+
+
 articoli = {
     "Fratelli d’Italia": [
         "https://pagellapolitica.it/articoli/meloni-fuorviante-immigrazione-sicurezza-ue",
@@ -51,8 +53,6 @@ articoli = {
         "https://pagellapolitica.it/articoli/spese-partiti-facebook-elezioni-2022"
     ]
 }
-
-
 
 # Configura WebDriver
 def configura_driver():
@@ -119,9 +119,10 @@ def main():
         driver.quit()
 
     # Salva tutti i risultati in un unico file CSV
+    percorso_csv = "/Users/daniloriitano/Sentiment_Analysis/Project Folder/risultati_sentiment_pagellapolitica.csv"
     df = pd.DataFrame(risultati)
-    df.to_csv("risultati_sentiment_pagellapolitica.csv", index=False, encoding="utf-8")
-    print("✅ Analisi completata! Dati salvati in 'risultati_sentiment_ilgiornale.csv'")
+    df.to_csv(percorso_csv, index=False, encoding="utf-8")
+    print(f"✅ Analisi completata! Dati salvati in '{percorso_csv}'")
 
 # Esegui il codice
 if __name__ == "__main__":
