@@ -52,9 +52,6 @@ articoli = {
     ]
 }
 
-
-
-
 # Configura WebDriver
 def configura_driver():
     options = Options()
@@ -121,8 +118,9 @@ def main():
 
     # Salva tutti i risultati in un unico file CSV
     df = pd.DataFrame(risultati)
-    df.to_csv("risultati_sentiment_fattoquotidiano.csv", index=False, encoding="utf-8")
-    print("✅ Analisi completata! Dati salvati in 'risultati_sentiment_ilgiornale.csv'")
+    percorso_csv = "/Users/daniloriitano/Sentiment_Analysis/Project Folder/risultati_sentiment_fattoquotidiano.csv"
+    df.to_csv(percorso_csv, index=False, encoding="utf-8")
+    print(f"✅ Analisi completata! Dati salvati in '{percorso_csv}'")
 
 # Esegui il codice
 if __name__ == "__main__":
