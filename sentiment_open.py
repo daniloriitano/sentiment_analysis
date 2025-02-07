@@ -24,14 +24,33 @@ def rimuovi_testo_indesiderato(testo):
 articoli = {
     "Fratelli d’Italia": [
         "https://www.open.online/2022/07/19/governo-meloni-ministri-vittoria-elezioni-fdi/",
-        "https://www.open.online/2022/08/31/elezioni-politiche-2022-elsa-fornero-giorgia-meloni-premier/",
         "https://www.open.online/2022/08/27/elezioni-politiche-2022-meloni-premier-mattarella/",
         "https://www.open.online/2022/08/30/elezioni-politiche-2022-di-maio-governo-meloni-draghi/",
+        "https://www.open.online/2022/08/31/elezioni-politiche-2022-elsa-fornero-giorgia-meloni-premier/",
         "https://www.open.online/2022/09/24/elezioni-politiche-2022-cantante-cosmo-vs-meloni/"
+    ],
+    "Lega": [
+        "https://www.open.online/2022/07/23/giorgia-meloni-governo-regola-vs-centrodestra/",
+        "https://www.open.online/2022/07/25/elezioni-2022-centrodestra-piano-salvini-berlusconi-vs-meloni/",
+        "https://www.open.online/2022/07/25/botta-e-risposta-meloni-salvini-premiership-centrodestra/",
+        "https://www.open.online/2022/08/30/elezioni-politiche-2022-salvini-decreti-sicurezza-sbarchi/",
+        "https://www.open.online/2022/09/24/elezioni-politiche-2022-possibili-risultati-tre-scenari/"
+    ],
+    "Partito Democratico": [
+        "https://www.open.online/2022/07/21/crisi-di-governo-draghi-partito-democratico/",
+        "https://www.open.online/2022/07/22/elezioni-pd-letta-renzi-m5s-sala-di-maio/",
+        "https://www.open.online/2022/07/22/elezioni-regionali-primarie-sicilia-conte-vs-letta/",
+        "https://www.open.online/2022/07/23/elezioni-sondaggi-collegi-maggioritari-perche/",
+        "https://www.open.online/2022/07/28/elezioni-2022-meloni-fdi-vs-pd-ucraina/"
+    ],
+    "Movimento 5 Stelle": [
+        "https://www.open.online/2022/07/23/conte-crisi-governo-m5s-forza-leale/",
+        "https://www.open.online/2022/07/23/m5s-conte-vs-letta-elezioni/",
+        "https://www.open.online/2022/07/24/letta-rottura-m5s-irreversibile/",
+        "https://www.open.online/2022/07/25/elezioni-politiche-sondaggio-swg-25-luglio-2022/",
+        "https://www.open.online/2022/07/26/m5s-piano-alleanza-sinistra-melenchon/"
     ]
 }
-
-
 
 
 # Configura WebDriver
@@ -99,10 +118,12 @@ def main():
         driver.quit()
 
     # Salva tutti i risultati in un unico file CSV
+    percorso_csv = "/Users/daniloriitano/Sentiment_Analysis/Project Folder/risultati_sentiment_open.csv"
     df = pd.DataFrame(risultati)
-    df.to_csv("risultati_sentiment_open.csv", index=False, encoding="utf-8")
-    print("✅ Analisi completata! Dati salvati in 'risultati_sentiment_ilgiornale.csv'")
+    df.to_csv(percorso_csv, index=False, encoding="utf-8")
+    print(f"✅ Analisi completata! Dati salvati in '{percorso_csv}'")
 
 # Esegui il codice
 if __name__ == "__main__":
     main()
+
