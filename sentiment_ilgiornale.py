@@ -117,9 +117,10 @@ def main():
         driver.quit()
 
     # Salva tutti i risultati in un unico file CSV
+    percorso_csv = "/Users/daniloriitano/Sentiment_Analysis/Project Folder/risultati_sentiment_ilgiornale.csv"
     df = pd.DataFrame(risultati)
-    df.to_csv("risultati_sentiment_ilgiornale.csv", index=False, encoding="utf-8")
-    print("✅ Analisi completata! Dati salvati in 'risultati_sentiment_ilgiornale.csv'")
+    df.to_csv(percorso_csv, index=False, encoding="utf-8")
+    print(f"✅ Analisi completata! Dati salvati in '{percorso_csv}'")
 
 # Esegui il codice
 if __name__ == "__main__":
